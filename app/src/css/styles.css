@@ -1,0 +1,112 @@
+.modal{
+  width: 100%;
+  background-Color:#fff;
+  box-Shadow: rgba(0,0,0,0.2) ;
+}
+
+.overLay{
+display: 'flex';
+align-items: 'center';
+position:'fixed';
+top:0;
+right:0;
+left:0;
+bottom:0;
+padding:1rem;
+background-color: rgba(0,0,0,0.7);
+z-index: 9999;
+opacity: 1;
+overflow-x:'hidden';
+overflow-y:'auto';
+animation:'show .5s ease';
+}
+
+.inL{
+  display: flex;
+  padding-top: 10px
+}
+
+
+.rightP{
+  padding-right: 10px;
+}
+.deleteEvent{
+  background-color: red;
+  border-radius: 5px;
+  border: 1px;
+  cursor: pointer;
+}
+
+.futureEvent{
+  cursor: pointer;
+}
+
+.row{
+  display:flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  width:100%;
+}
+
+
+.column{
+  display:flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex:1;
+}
+
+.act{
+  display:flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  width:100%;
+
+}
+
+.rowEvent{
+  display:flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  width:30%;
+}
+.columnEvent{
+  display:flex;
+  flex-direction: column;
+  /* flex-basis: 100%; */
+  flex:1;
+  /* width:40%; */
+}
+.columnCalendar{
+  display:flex;
+  flex-direction: column;
+  /* flex-basis: 100%; */
+  flex:1;
+  /* width:60%; */
+}
+
+.calendarW{
+ display: flex;
+ flex-direction: row;
+ flex-wrap:wrap;
+ width:100%;
+
+
+}
+
+.calendarD{
+  display:flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  overflow: hidden;
+  border-style: solid; 
+  border-width: 1px;
+  border-color: black;
+  background-color: silver;
+}
+
+.daysRow{
+  text-align: center;
+  background-color: azure;
+}
