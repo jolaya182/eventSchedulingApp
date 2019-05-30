@@ -20,7 +20,7 @@ const RowSlot = ({ days, numberSpace, endSpace }) => <div className={"calendarW"
 
   {Object.keys(days).map((day, index) => {
     if (days[day]) {
-      return <DaySlot key={index} activities={days[day]} >{day}</DaySlot>
+      return <DaySlot key={index} activities={days[day]} >{day}{day == index ? days[day]: null}</DaySlot>
     } else {
       return <DaySlot key={index}  >{day}</DaySlot>
     }

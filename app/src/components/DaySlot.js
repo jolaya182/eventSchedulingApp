@@ -6,13 +6,8 @@ const DaySlot = ({children, day, activities})=><div className={"calendarD"}>
 {
  ( activities) ? <div>{day}{Object.keys(activities).
  map((d, index)=>{
-  //  console.log("dactivity:", activities[d]);
- return <div key={index} >
-  {activities[d].map((activit, indx)=>{
-    return <div key={indx}className={"act"}>{activit}</div>
-  })}
- 
- </div>} )} </div>:null
+   return <div key={index}className={"act"}>{ activities[d]}</div>
+} )} </div>:null
   
 }
 </div>;

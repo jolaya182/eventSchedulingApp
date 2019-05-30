@@ -56,7 +56,6 @@ export default class FormInfo extends React.Component {
 
     if (_minute.value == "Choose your minute") error += _minute.value;
 
-    console.log("error", error);
     if (error == "") {
       let id = this.state.currentActivity;
       this.cb(id.id, _name.value, _year.value, _month.value, _day.value, _hour.value, _minute.value);

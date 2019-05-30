@@ -187,7 +187,7 @@ export default class Main extends React.Component {
     let yr = Object.keys(years).length;
 
     if (yr >= 1) {
-      log("1");
+      
       let months = years[currentYear];
       if (months) {
         let time = months[currentMonth];
@@ -521,18 +521,16 @@ export default class Main extends React.Component {
       let activity = times[time];
       // that month and the activities and store into an object
       let da = new Date(time);
-      let day = da.getDay();
+      let hour = da.getHours();
       let numberOfDayInMonth = da.getDate();
       //get the number of the 
-      if (!event[day]) {
+      if (!result[numberOfDayInMonth]) {
         let actArray = [];
         actArray.push(activity);
-        event[day] = actArray;
-        result[numberOfDayInMonth] = event;
+        result[numberOfDayInMonth] = actArray;
       } else {
-        event[day].push(activity);
-        let temp = result[numberOfDayInMonth];
-        temp = event;
+        result[numberOfDayInMonth].push(activity);
+
       }
     });
     // return and  obj {numberOfTheDay: [activities]}
