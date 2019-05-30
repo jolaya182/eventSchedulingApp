@@ -1,11 +1,11 @@
 /* *
   title: Main.js 
 
-  date: 5/21/2019
+  date: 5/28/2019
 
   author:  javier olaya
 
-  description: component that handles the main logic for accessing and organizing the calendar
+  description: the Maing component that handles the main logic for accessing and organizing the main functions of the calendar
          
  */
 import React from 'react';
@@ -17,6 +17,7 @@ import styles from '../css/styles.css';
 
 /* define the state properties of the calendar */
 export default class Main extends React.Component {
+  /* define the state properties of the  */
   constructor(props) {
     super(props);
     const today = new Date();
@@ -37,36 +38,24 @@ export default class Main extends React.Component {
     }
   }
 
+  /* 
+ @description add event to the calendar
 
-  /*   
-  @description method tha updates  
-  and current state of the buttons 
+ @param Event
 
-  @param props
-
-  */
-
-  componentDidUpdate() {
-    console.log("years", this.state.years);
-    // console.log("number of days:", this.state.numbersDaysInCurrentMonth)
-  }
-
-  //add event to the calendar
+ */
   addEventId = (event) => {
     //
     const { name } = event.target;//id
     const today = new Date();
     const id = today;
-    // console.log(id, name, value);
     const { currentYear, currentMonth, years } = this.state;
     // check if any years exist if so update the years
     if (Object.keys(years).length >= 1) {
       let months = years[currentYear];
-      // console.log("months", months);
       //  check and months exist for this year
       if (months) {
         let time = months[currentMonth];
-        // console.log("time", time);
         // check and months exist for this year
         if (time) {
           time[id] = name;
@@ -79,7 +68,6 @@ export default class Main extends React.Component {
           months[currentMonth] = { [id]: name };
           years[currentYear] = months;
           let placeHolder = { years }
-          // console.log("added the event", placeHolder);
           this.setState((state, props) => (placeHolder))
         }
       } else {
@@ -87,33 +75,32 @@ export default class Main extends React.Component {
         let month = { [currentMonth]: { [id]: name } };
         years[currentYear] = month;
         let placeHolder = { years };
-        // console.log("added the event", placeHolder);
         this.setState((state, props) => (placeHolder));
       }
     }
     else {
       // if no year exists add the currentYear with the current month and the activity
       let placeHolder = { years: { [currentYear]: { [currentMonth]: { [id]: name } } } }
-      // console.log("added the event", placeHolder);
       this.setState((state, props) => (placeHolder));
     }
   }
 
+  /* 
+ @description add event to the calendar
+
+ @param string
+
+ */
   addEvent = (id, name) => {
-    //
-    console.log("addEvent:",id, name);
     const { years } = this.state;
     const currentYear = id.getFullYear();
-    const currentMonth = id.getMonth()+1 ;
-    console.log("currentYear-:", currentYear, "currentMonth", currentMonth);
+    const currentMonth = id.getMonth() + 1;
     // check if any years exist if so update the years
     if (Object.keys(years).length >= 1) {
       let months = years[currentYear];
-      console.log("month-", months);
       //  check and months exist for this year
       if (months) {
         let time = months[currentMonth];
-        console.log("time-", time);
         // check and months exist for this year
         if (time) {
           time[id] = name;
@@ -126,7 +113,6 @@ export default class Main extends React.Component {
           months[currentMonth] = { [id]: name };
           years[currentYear] = months;
           let placeHolder = { years }
-          // console.log("added the event", placeHolder);
           this.setState((state, props) => (placeHolder))
         }
       } else {
@@ -134,18 +120,21 @@ export default class Main extends React.Component {
         let month = { [currentMonth]: { [id]: name } };
         years[currentYear] = month;
         let placeHolder = { years };
-        // console.log("added the event", placeHolder);
         this.setState((state, props) => (placeHolder));
       }
     }
     else {
       // if no year exists add the currentYear with the current month and the activity
       let placeHolder = { years: { [currentYear]: { [currentMonth]: { [id]: name } } } }
-      console.log("added the event", placeHolder);
       this.setState((state, props) => (placeHolder));
     }
   }
-  //view coming events
+  /* 
+ @description get the list of all events stored
+
+ @param integer
+
+ */
   viewHistoryOfEvents = (month = "initial") => {
     // this needs to be placed in the render method
     let years = this.state.years;
@@ -162,35 +151,47 @@ export default class Main extends React.Component {
     })
 
   }
+
+  /* 
+ @description update the event using a button
+
+ @param event
+
+ */
   updateExistingEvent = (e) => {
     const { id, value } = e.target;
     this.updateEvent(id, value);
   }
 
-  // update existing event in the calendar
-  updateEvent = (id, name, newId) => {
-    let { currentYear, currentMonth, years } = this.state;
+  /* 
+ @description update existing event in the calendar 
 
+ @param date, string, event
+
+ */
+
+  updateEvent = (id, name, newId) => {
     this.deleteEvent(id);
     this.addEvent(newId, name)
-
   }
 
-  // delete an event
+  /* 
+ @description delete an event
+
+ @param date
+
+ */
   deleteEvent = (id) => {
     let { currentYear, currentMonth, years } = this.state;
     // get current year month and id and change the name of the activity
     let yr = Object.keys(years).length;
 
     if (yr >= 1) {
-      console.log("1");
+      log("1");
       let months = years[currentYear];
       if (months) {
-        console.log("2");
         let time = months[currentMonth];
         if (time) {
-          console.log("3");
-          console.log("time:", time, "id:", id, "time[id]:", time[id]);
           delete time[id];
           if (Object.keys(time).length < 1) { months[currentMonth] = {}; } else { months[currentMonth] = time; }
 
@@ -211,7 +212,10 @@ export default class Main extends React.Component {
     }
   }
 
-  //increment month
+  /* 
+ @description increment month as stepper
+
+ */
   incrementMonth = () => {
 
     let month = this.state.currentMonth + 1;
@@ -220,21 +224,33 @@ export default class Main extends React.Component {
     this.setState((state, props) => ({ currentMonth: month, numbersDaysInCurrentMonth: numDaysMonth }))
 
   }
-  //decrementMonth
+
+  /* 
+ @description decrement Month as stepper
+
+ */
   decrementMonth = () => {
     let month = this.state.currentMonth - 1;
     if (month < 1) { month = 12; }
     let numDaysMonth = new Date(this.state.currentYear, month + 1, 0).getDate();
     this.setState((state, props) => ({ currentMonth: month, numbersDaysInCurrentMonth: numDaysMonth }))
   }
-  // decrement year
+   
+  /* 
+ @description decrement year
+
+ */
   decrementYear = () => {
     let year = this.state.currentYear - 1;
     if (year < 1700) { year = this.state.highestYear; }
     this.setState((state, props) => ({ currentYear: year }))
   }
 
-  // increment year
+
+  /* 
+ @description increment year
+
+ */
   incrementYear = () => {
     let year = this.state.currentYear + 1;
     let hy = this.state.highestYear;
@@ -242,24 +258,24 @@ export default class Main extends React.Component {
     this.setState((state, props) => ({ currentYear: year }))
   }
 
+  /* 
+ @description get a list of future events in the calendar
+
+ */
   viewFutureEvents = () => {
     let { years, fixedYear, fixedMonth, fixedDay, monthConversion } = this.state;
     let futureEvents = [];
 
     Object.keys(years).map(function (key, index) {
-      // console.log("1");
       if (key >= fixedYear) {
         Object.keys(years[key]).map(function (ky, ind) {
-          // console.log("2");
           let months = years[key];
           Object.keys(months[ky]).map(function (k, i) {
-            // console.log("3");
             let time = months[ky]
             let currentDate = new Date();
             let kDate = new Date(k);
             kDate.setHours(0, 0, 0, 0);
             currentDate.setHours(0, 0, 0, 0);
-            // console.log(kDate.setHours(0,0,0,0) >= currentDate.setHours(0,0,0,0));
 
             if (kDate >= currentDate) {
               let st = key + ":: " + monthConversion[ky] + ":: " + k + ":: " + time[k];
@@ -270,42 +286,73 @@ export default class Main extends React.Component {
         })
       }
     })
-    console.log("futureEvents", futureEvents);
     return futureEvents;
   }
 
+  /* 
+  @description a toggle to hide or show the modal
+
+
+  */
   toggleModal = () => {
     this.setState((state, props) => ({ showModal: !this.state.showModal }));
   }
 
+  /* 
+  @description a toggle to hide or show the modal
+
+  @param event 
+
+  */
   toggleModalId = (e) => {
-    // console.log('id',id);
     let id = e.target.id;
     this.setState((state, props) => ({ showModal: !this.state.showModal, currentActivity: id }));
   }
+
+  /* 
+  @description creating an event on a calendar
+
+  @param date, string, integer, integer, integer, integer, integer
+
+  */
   handleActivityCreation = (id, _name, _year, _month, _day, _hour, _minute) => {
     let date = this.handleSubmit(id, _name, _year, _month, _day, _hour, _minute);
     this.addEvent(date, _name)
   }
 
+  /* 
+  @description modifies the event's name and time
+
+  @param date, string, integer, integer, integer, integer, integer
+
+  */
   handleUpdate = (id, _name, _year, _month, _day, _hour, _minute) => {
     let date = this.handleSubmit(id, _name, _year, _month, _day, _hour, _minute);
     this.updateEvent(id, _name, date);
   }
 
+  /* 
+  @description create a date based on the form submission
+
+  @param date, string, integer, integer, integer, integer, integer
+
+  */
   handleSubmit = (id, _name, _year, _month, _day, _hour, _minute) => {
-    // let {_name, _name, _name, _name, _name} = e;
-    console.log("handling submit");
-    console.log(id, _name, _year, _month-1, _day, _hour, _minute);
     let date = new Date(id);
     date.setFullYear(_year);
-    date.setMonth(_month-1);
+    date.setMonth(_month - 1);
     date.setDate(_day);
     date.setHours(_hour);
     date.setMinutes(_minute);
     return date
   }
 
+  /* 
+  @description gets a list of years for the form
+
+  @return array
+
+  */
   yearList = () => {
     let stack = [];
     let hy = this.state.highestYear;
@@ -316,14 +363,29 @@ export default class Main extends React.Component {
 
   }
 
+  /* 
+  @description gets a list of years for the form
+
+  @return array
+
+  */
   dayList = () => {
-    let days = new Date(this.state.currentYear, this.state.currentMonth , 0).getDate();
+    let days = new Date(this.state.currentYear, this.state.currentMonth, 0).getDate();
     let stack = [];
     for (let indx = 1; indx <= days; indx += 1) {
       stack.push(indx);
     }
     return stack;
   }
+
+  /* 
+  @description searches for the activity to be updated
+
+  @param date
+
+  @return object
+
+  */
   getCurrentActivity = (dateString) => {
     if (!dateString) return { name: "", year: "", month: "", hour: "", minute: "" };
     let { currentYear, currentMonth, years } = this.state;
@@ -332,15 +394,10 @@ export default class Main extends React.Component {
     let result = { name: "", year: "", month: "", hour: "", minute: "" };
     Object.keys(years).map((year, index) => {
       let months = years[year];
-      // console.log("1");
       return Object.keys(months).map((month, indx) => {
         let time = months[month];
-        // console.log("2");
         return Object.keys(time).map((id, inx) => {
-          // console.log("3");
-          // console.log("id:",id, "dateString:",dateString);
           if (id.trim == dateString.trim) {
-            // console.log("4");
             let da = new Date(dateString);
             result = {
               id: id, name: time[id], year: year, month: month,
@@ -350,16 +407,20 @@ export default class Main extends React.Component {
         });
       });
     });
-    console.log("result", result);
     return result;
   }
 
+  /* 
+    @description create a list of number for the month, and space before and after the numbers on the calendar
+  
+    @return object
+  
+    */
   createWeekDays = () => {
     let { dayConversion, currentYear, currentMonth } = this.state;
-    let t = new Date(this.state.currentYear, this.state.currentMonth , 0);
+    let t = new Date(this.state.currentYear, this.state.currentMonth, 0);
     let fixedDay = t.getDate();
-    console.log("Month date:", t);
-    let days = new Date(this.state.currentYear, this.state.currentMonth , 0).getDate();
+    let days = new Date(this.state.currentYear, this.state.currentMonth, 0).getDate();
 
     let daysActivities = this.getMonthsActivies();
     let startDay = false;
@@ -371,13 +432,8 @@ export default class Main extends React.Component {
     let weektracker = 1;
     let neg = 0;
     let checkNeg = true;
-    console.log("days", days);
     let limit = days / 7;
-    console.log("limit", limit);
-    if (days % 7 >= 1)limit++;
-    console.log("limit", limit);
-    console.log("daysActivities", daysActivities);
-    // if (Object.keysdays(Activities).length === 0) return [];
+    if (days % 7 >= 1) limit++;
     // get the list of activities for that month
     // get the day list
     // get the cache of days indexed with day string 
@@ -385,27 +441,25 @@ export default class Main extends React.Component {
     // create 2 stacks one for outer rows and the inner for days in that row
     // while loop until counter is >= days.length;
     while (weektracker <= limit) {
-      
+
       // have inner for loop through the days of the week
       let obj = {};
 
       for (let indx = 0; indx <= 6; indx += 1) {
-        if(counter-1>=fixedDay)postive.push("_");
+        if (counter - 1 >= fixedDay) postive.push("_");
         // inside of the for loop, 
         // if the startday is true then push an object {counter: list of activies}(check if is in the list of activies for that day) to the inner stack
         // if the current index matches the dates name of the day 
 
         if (startDay) {
-          if(counter-1 < fixedDay){
-          obj[counter] = daysActivities[counter] ? daysActivities[counter] : null
-          // week.push(obj);
-           }
+          if (counter - 1 < fixedDay) {
+            obj[counter] = daysActivities[counter] ? daysActivities[counter] : null
+            // week.push(obj);
+          }
           // increment the counter
           counter++;
         } else {
           let firstDay = new Date(currentYear, currentMonth - 1, 1);
-          console.log("firstDay:", firstDay);
-          console.log("dayConversion[indx]:", dayConversion[indx], " dayConversion[firstDay.getDay()]", dayConversion[firstDay.getDay()], "dayConversion[indx] ===  dayConversion[firstDay.getDay()]:", dayConversion[indx] === dayConversion[firstDay.getDay()])
           if (dayConversion[indx] === dayConversion[firstDay.getDay()]) {
             //then set the switch var into true and then push an object {counter: list of activies} to the inner stack
             // increment the counter
@@ -422,15 +476,13 @@ export default class Main extends React.Component {
 
         }
       }
-      if(checkNeg){
+      if (checkNeg) {
         days = days + Math.abs(neg);
         limit = days / 7;
-        console.log("neg limit", limit);
-        if (days % 7 >= 1)limit++;
+        if (days % 7 >= 1) limit++;
         checkNeg = false;
       }
       week.push(obj);
-      console.log("postive", postive)
       // push the inner stack into the outter stack
       weekDay.push(week);
       weektracker++;
@@ -439,27 +491,30 @@ export default class Main extends React.Component {
       week = [];
 
     }
-    
+
     let returnObj = [];
     returnObj.push(weekDay);
     returnObj.push(negativeNumbers);
     returnObj.push(postive);
-    console.log("returnObj", returnObj);
     return returnObj;
   }
 
+  /* 
+  @description get all the activities that have been schedule for the month
+
+  @return object
+
+  */
   getMonthsActivies = () => {
     // get the list of all the activites by the current month and year
     let { years, currentYear, currentMonth, } = this.state;
     let result = {};
     let event = {};
     if (Object.keys(years).length === 0) return {};
-    console.log(years);
     let months = years[currentYear];
-    if (typeof months  === "undefined") return {};
-    console.log("months", months)
+    if (typeof months === "undefined") return {};
     let times = months[currentMonth];
-    if (typeof times  === "undefined") return {};
+    if (typeof times === "undefined") return {};
 
     // loop through every day in the month  
     Object.keys(times).map((time) => {

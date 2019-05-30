@@ -1,7 +1,18 @@
+/* *
+  title: FormInfo.js 
+
+  date: 5/28/2019
+
+  author:  javier olaya
+
+  description: component that handles the main logic for accessing and organizing the form data entry
+         
+ */
 import React from 'react';
 import styles from '../css/styles.css';
 
 export default class FormInfo extends React.Component {
+   /* define the state properties of the  */
   constructor(props) {
     super(props)
     this.state = {
@@ -15,6 +26,13 @@ export default class FormInfo extends React.Component {
     this.cb = props.cb.bind(this);
     this.toggleModal = props.toggleModal.bind(this);
   }
+
+   /* 
+  @description event handler for the form submission
+
+  @param Event 
+
+  */
   submit = (e) => {
     e.preventDefault();
     // const {_name} = this.refs;
@@ -25,9 +43,6 @@ export default class FormInfo extends React.Component {
     const _day = form[3];
     const _hour = form[4];
     const _minute = form[5];
-    // const selectable = Array.prototype.slice.call(form);
-    // console.log("form", selectable);
-    // console.log(_name.value, _year.value,  _month.value, _day.value, _hour.value, _minute.value)
     let error = "";
     if (_name.value == "Choose your name") error += _name.value + ", ";
 
@@ -44,7 +59,6 @@ export default class FormInfo extends React.Component {
     console.log("error", error);
     if (error == "") {
       let id = this.state.currentActivity;
-      // console.log("ca",id)
       this.cb(id.id, _name.value, _year.value, _month.value, _day.value, _hour.value, _minute.value);
       this.toggleModal();
     } else {
@@ -56,7 +70,6 @@ export default class FormInfo extends React.Component {
   render() {
     const { toggleModal, submit } = this;
     const { yearList, dayList, currentActivity, showCancel, currentYear, currentMonth } = this.state;
-    console.log("currentActivity", currentActivity);
     let hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
     let minutes = [0, 15, 30, 45];
     let days = dayList;
