@@ -509,14 +509,6 @@ export default class Main extends React.Component {
                 currentMonth={currentMonth}
               ></NavComponent>
 
-              <div>
-                <button id={"2019-05-24T17:00:00-04:00"} name={"hiking"} onClick={this.addEventId}>add me please</button>
-                <button id={"2019-05-24T17:00:00-04:00"} name={"running"} onClick={this.addEventId}>add me please</button>
-                <button id={"2019-05-24T17:00:00-04:15"} name={"jumping"} onClick={this.addEventId}>add me please</button>
-                <button id={"2019-05-24T17:00:00-04:30"} name={"cooking"} onClick={this.addEventId}>add me please</button>
-                <button id={"2019-05-24T17:00:00-04:45"} name={"sleeping"} onClick={this.addEventId}>add me please</button>
-              </div>
-
             </div>
           </div>
           <div className={"row"}>
